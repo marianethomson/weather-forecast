@@ -1,34 +1,51 @@
+//free text search
+//if returns more than one city with arg, asks user to choose which city
+//passes latitude and longitude for weather query
+
 function searchCity(param) {
   var param = document.querySelector("#search").value.trim();
   var status = document.querySelector("#status");
+  var positionStackAPICall =
+    "http://api.positionstack.com/v1/forward?access_key=4dd878d958e12c4195c43f670c7a0e87&query=" +
+    param;
+
+  //if no search arg is provided
   if (param.length == 0) {
     status.textContent =
       "Use the geolocation button or inform and address or city";
-  } else {
-    //hide API key
-    var positionStackAPICall =
-      "http://api.positionstack.com/v1/forward?access_key=4dd878d958e12c4195c43f670c7a0e87&query=" +
-      param;
-
+  } //make call
+  else {
     fetch(positionStackAPICall)
       .then(function (response) {
         if (response.ok) {
           response.json().then(function (data) {
-            var arrResponse = [];
-            for (var i in data) arrResponse.push([i, data[i]]);
-            if (arrResponse[1].length > 1) {
+            var responseSize = data.data.length;
+            //if returns more than one city, user chooses which one
+            if (responseSize > 1) {
               status.textContent =
                 "More than one location found. Please select one:";
-              for (i = 0; i < arrResponse[1].length; i++) {
+              for (i = 0; i < responseSize; i++) {
                 var displayInteraction = document.querySelector("#display");
+                var displayLine = document.createElement("p");
                 var displayEl = document.createElement("a");
-                var displayTxt = arrResponse[1][i].label;
+                var displayTxt = data.data[i].label;
+                //creates the links for each city
                 displayEl.append(displayTxt);
-                displayInteraction.appendChild(displayEl);
+                displayLine.appendChild(displayEl);
+                displayInteraction.appendChild(displayLine);
+                document
+                  .querySelector("a")
+                  .addEventListener("click", function (event) {
+                    event.preventDefault;
+                    var longitude = data.data[i].longitude;
+                    var latitude = data.data[i].latitude;
+                    var position = [longitude, latitude];
+                    console.log(position);
+                    return position;
+                  });
               }
-              //add event listener for click element}
             } else {
-              //create array position for lat and lon, return position
+              //create array position for lat and lon, return position}
             }
           });
         } else {
@@ -53,8 +70,6 @@ function geolocationGetWeather() {
       "&lon=" +
       longitude +
       "&exclude=minutely,hourly&&appid=02df0e102c5eae2f143e987b3da9595b";
-    //hide api key (git ignore?)
-    status.textContent = "";
 
     fetch(weatherAPICall)
       .then(function (response) {
@@ -82,13 +97,6 @@ function geolocationGetWeather() {
     status.textContent = "Locating…";
     navigator.geolocation.getCurrentPosition(success, error);
   }
-}
-
-function arrJson(data) {
-  var obj = JSON.parse(data);
-  var arr = [];
-  for (var i in obj) arr.push(obj[i]);
-  return arr;
 }
 
 function displayWeather(dataIndex) {
