@@ -5,53 +5,64 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <!--CSS Lib-->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-        <!--Google Fonts-->
+        <!--Google Fonts--> 
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Raleway&family=Montserrat&display=swap" rel="stylesheet">
         <!--CSS-->
         <link rel="stylesheet" href="style.css" />
 
         <title>Weather Forecast</title>
     </head>
-    <div class="columns">
-        <div class="column">
-            <section class="hero">
-                <div class="hero-body">
-                    <p class="title">
-                    Weather Forecast
-                    </p>
-                    <p class="subtitle">
-                    Get your forecast for the next 7 days
-                    </p>
-                </div>
-            </section>
-                <div class="column">
-                    <section class="container">       
-                        <div class="field is-grouped">
-                            <div class="control">
-                                <label class="label">Search</label>
-                                <input class="input is-normal" id="search" type="text" placeholder="Search city">
-                                <button class = "button is-primary" id = "search-btn">   
-                                    <span class="icon">
-                                    <i class="fas fa-search-location"></i>
-                                    </span>
-                                    <span>Search My Location</span>
-                                </button>
-                                <button class = "button is-info" id = "find-me">
-                                    <span class="icon">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    </span>
-                                    <span>Get My Location</span>
-                                </button>
-                                <p id = "status"></p>
-                            </div>
-                        </div>
-                    </section>
-                </div>
+    
+    <body>
+    <section class="hero is-link blue-gradient">
+        <div class="hero-body">
+            <h1 class="title">Weather Forecast</h1>
+            <h2 class="subtitle">Get your forecast for the next 7 days</h2>
         </div>
-    </div>
+    </section>
+    
+    <div class="tile is-ancestor">
+        <div class="tile is-vertical is-12">
+            <div class="tile">
+                <div class="tile is-parent is-4 is-vertical">
+                    <article class="tile is-child container">
+                        <label class="label">Search</label>
+                        <input class="input" id="search" type="text" placeholder="Search city">
+                        <button class = "button is-primary space-btn" id = "search-btn">   
+                            <span class="icon">
+                                <i class="fas fa-search-location"></i>
+                            </span>
+                            <span>Search My Location</span>
+                        </button>
+                        <button class = "button is-info space-btn" id = "find-me">
+                            <span class="icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </span>
+                            <span>Get My Location</span>
+                        </button>
+                        <p id = "status"></p>
+                    </article> 
+                    <article class="tile is-child container">
+                    <p class="title" id="display">History</p>
+                    </article>
+                </div>
+                <div class="tile is-parent is-8 is-vertical">
+                    <div class="tile is-child container">Col 1</div>
+                    <div class="tile is-child container">Col 2</div>
+                    <div class="tile is-child container">Col 3</div>
+                    <div class="tile is-child container">Col 4</div>
+                    <div class="tile is-child container">Col 5</div>
+                    <div class="tile is-child container">Col 6</div>
+                    <div class="tile is-child container">Col 7</div>
+                </div>              
+            </div>
+        </div>
+     </div>
+       
 
-
-
-        
+       
 
         <!--Font Awesome Icons-->
         <script src="https://kit.fontawesome.com/be369bf2af.js" crossorigin="anonymous"></script>

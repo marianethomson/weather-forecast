@@ -18,8 +18,14 @@ function searchCity(param) {
               status.textContent =
                 "More than one location found. Please select one:";
               for (i = 0; i < response.length; i++) {
+                var displayInteraction = document.querySelector("#display");
+                var displayEl = document.createElement(<p></p>);
+                var displayTxt = data.label;
+
+                displayEl.append(displayTxt);
+                displayInteraction.append(displayEl);
                 //create element
-                //pass content data.label
+                //pass content
                 //add event listener for click element
               }
             } else {
