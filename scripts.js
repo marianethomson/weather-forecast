@@ -1,7 +1,7 @@
 function searchCity(param) {
   var param = document.querySelector("#search").value.trim();
+  var status = document.querySelector("#status");
   if (param.length == 0) {
-    var status = document.querySelector("#status");
     status.textContent =
       "Use the geolocation button or inform and address or city";
   } else {
@@ -14,25 +14,21 @@ function searchCity(param) {
       .then(function (response) {
         if (response.ok) {
           response.json().then(function (data) {
-            if (response.length > 1) {
+            var arrResponse = [];
+            for (var i in data) arrResponse.push([i, data[i]]);
+            if (arrResponse[1].length > 1) {
               status.textContent =
                 "More than one location found. Please select one:";
-              for (i = 0; i < response.length; i++) {
+              for (i = 0; i < arrResponse[1].length; i++) {
                 var displayInteraction = document.querySelector("#display");
-                var displayEl = document.createElement(<p></p>);
-                var displayTxt = data.label;
-
+                var displayEl = document.createElement("a");
+                var displayTxt = arrResponse[1][i].label;
                 displayEl.append(displayTxt);
-                displayInteraction.append(displayEl);
-                //create element
-                //pass content
-                //add event listener for click element
+                displayInteraction.appendChild(displayEl);
               }
+              //add event listener for click element}
             } else {
               //create array position for lat and lon, return position
-              console.log(data);
-              console.log(data.latitude);
-              console.log(data.longitude);
             }
           });
         } else {
@@ -86,6 +82,13 @@ function geolocationGetWeather() {
     status.textContent = "Locating…";
     navigator.geolocation.getCurrentPosition(success, error);
   }
+}
+
+function arrJson(data) {
+  var obj = JSON.parse(data);
+  var arr = [];
+  for (var i in obj) arr.push(obj[i]);
+  return arr;
 }
 
 function displayWeather(dataIndex) {
