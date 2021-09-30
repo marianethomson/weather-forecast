@@ -27,33 +27,28 @@
         <div class="tile is-vertical is-12">
             <div class="tile">
                 <div class="tile is-parent is-4 is-vertical">
-                    <article class="tile is-child container">
+                    <article class="tile is-child box">
                         <label class="label">Search</label>
-                        <input class="input" id="search" type="text" placeholder="Search city">
-                        <button class = "button is-primary space-btn" id = "search-btn">   
-                            <span class="icon">
-                                <i class="fas fa-search-location"></i>
-                            </span>
-                            <span>Search My Location</span>
-                        </button>
-                        <button class = "button is-info space-btn" id = "find-me">
-                            <span class="icon">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </span>
-                            <span>Get My Location</span>
-                        </button>
+                        <label class = "is-size-7">For more accurate results, use the city name followed by comma and contry with two letters. (ex. Melbourne, AU or Melbourne, US)</label>
+                        <div class="field has-addons">
+                            <input class="control input" id="search" type="text" placeholder="Search city">
+                            <button class = "control button is-primary" id = "search-btn">   
+                                <span class="icon">
+                                    <i class="fas fa-search-location"></i>
+                                </span>
+                            </button>
+                            <button class = "control button is-info" id = "find-me">
+                                <span class="icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </span>
+                            </button>
+                        </div>
                         <p class="container" id = "status"></p>
+                        <p class="container" id="history"></p>
                     </article> 
-                    <article class="tile is-child container">
-                    <p class="container" id="display"></p>
-                    </article>
                 </div>
-                <div class="tile is-parent is-8 is-vertical">
-                    <div class="tile is-child container" id ="current"></div>
-                    <div class="tile is-child container forecast"></div>
-                    <div class="tile is-child container forecast"></div>
-                    <div class="tile is-child container forecast"></div>
-                    <div class="tile is-child container forecast"></div>
+                <div class="tile is-parent is-8 is-vertical" id="weather">
+                    <div class="tile is-child box is-hidden" id ="current"></div>
                 </div>              
             </div>
         </div>
