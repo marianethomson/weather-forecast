@@ -1,6 +1,19 @@
+/* 
+THEN I am presented with current and future conditions for that city and that city is added to the search history
+WHEN I view current weather conditions for that city
+THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
+WHEN I view the UV index
+THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
+WHEN I view future weather conditions for that city
+THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
+WHEN I click on a city in the search history
+THEN I am again presented with current and future conditions for that city */
+
 //free text search
 //if returns more than one city with arg, asks user to choose which city
 //passes latitude and longitude for weather query
+
+function displayCity() {}
 
 function searchCity(param) {
   var param = document.querySelector("#search").value.trim();
@@ -58,6 +71,7 @@ function searchCity(param) {
   }
 }
 
+//divide geolocation and getWeather
 function geolocationGetWeather() {
   var status = document.querySelector("#status");
 
@@ -69,13 +83,14 @@ function geolocationGetWeather() {
       latitude +
       "&lon=" +
       longitude +
-      "&exclude=minutely,hourly&&appid=02df0e102c5eae2f143e987b3da9595b";
+      "&exclude=minutely,hourly&&appid=02df0e102c5eae2f143e987b3da9595b&units=metric";
 
     fetch(weatherAPICall)
       .then(function (response) {
         if (response.ok) {
           response.json().then(function (data) {
-            //displayweather
+            status.textContent = "";
+            displayWeather(data);
             console.log(data);
           });
         } else {
@@ -98,17 +113,75 @@ function geolocationGetWeather() {
     navigator.geolocation.getCurrentPosition(success, error);
   }
 }
+//helper function to get dates from Unix to human readable
+function dateUnixToHuman(unixTime) {
+  var milliseconds = unixTime * 1000;
+  var dateObject = new Date(milliseconds);
+  return dateObject.toLocaleString();
+}
 
-function displayWeather(dataIndex) {
-  //class column is-one  7 columns
-  //display today
-  //get day and calculate 7 forward for name
+function displayWeather(obj) {
+  var currentWeatherCard = document.querySelector("#current");
+  var displayLine = document.createElement("p");
+  var rangeForecast = 5;
+  var cityName = extractCityName(obj.timezone);
+  var currentDate = dateUnixToHuman(obj.current.dt);
+  var currentIcon = obj.current.weather.icon;
+  var currentTemperature = obj.current.temp;
+  var currentHumidity = obj.current.humidity;
+  var currentUVI = obj.current.uvi;
+  var currentWindSpeed = obj.current.wind_speed;
+
+  cityName = displayLine.append(cityName);
+  currentDate = displayLine.append(currentDate);
+  currentIcon = displayLine.append(currentIcon);
+  currentTemperature = displayLine.append(currentTemperature);
+  currentHumidity = displayLine.append(currentHumidity);
+  currentUVI = displayLine.append(currentUVI);
+  currentWindSpeed = displayLine.append(currentWindSpeed);
+
+  currentWeatherCard.appendChild(
+    cityName,
+    currentDate,
+    currentIcon,
+    currentTemperature,
+    currentHumidity,
+    currentUVI,
+    currentWindSpeed
+  );
+
+  //class column is-one
   //weather: Array(1)0:
   //description: "moderate rain"
   //icon: "10d"
   //id: 501
   //main: "Rain"
-  //feels like to celsius //create helper function
+}
+
+function extractCityName(obj) {
+  var cityName = obj.split("/").pop();
+  return cityName;
+}
+
+function uviBGColour(obj) {
+  //low
+  if (obj < 2) {
+    //is-primary
+  } //medium
+  else if (obj >= 3 && obj <= 5) {
+    //is-alert
+  } //high
+  else {
+    //is-warning
+  }
+}
+
+function addToHistory(location, position) {
+  localStorage.setItem("location", "position");
+  var button = document
+    .createElement("button")
+    .addClass("button is-large location");
+  button.append(location);
 }
 
 //event listener for geolocation button, executes geoFindMe
@@ -118,3 +191,6 @@ document
 
 //event listener for search button, executes searchCity
 document.querySelector("#search-btn").addEventListener("click", searchCity);
+
+//event listener for history button
+//document.querySelectorAll(".location").addEventListener("click");

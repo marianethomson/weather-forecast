@@ -1,5 +1,6 @@
 body {
   font-family: "Montserrat", sans-serif;
+  color: white;
 }
 
 .space-btn {
@@ -19,4 +20,19 @@ body {
 
 .container {
   padding: 2rem 2rem;
+}
+
+.low {
+  background-color: #20bf55;
+  background-image: linear-gradient(315deg, #20bf55 0%, #01baef 74%);
+}
+
+.medium {
+  background-color: #f5d020;
+  background-image: linear-gradient(315deg, #f5d020 0%, #f53803 74%);
+}
+
+.high {
+  background-color: #990000;
+  background-image: linear-gradient(147deg, #990000 0%, #ff0000 74%);
 }
